@@ -1,0 +1,39 @@
+<mat-card>
+  <h2>{{message}}</h2>
+
+  <form [formGroup]="emojiForm" *ngIf="emojiForm" (submit)="save()" class="row" style=" width: 100%;">
+    <mat-form-field class="full-width">
+      <textarea matInput formControlName="name" placeholder="Name"></textarea>
+      <div class="alert" *ngIf="!emojiForm.controls['name'].valid && (emojiForm.controls['firstName'].touched)">
+        <div [hidden]="!emojiForm.controls['name'].errors.required">
+          Name is required.
+        </div>
+    
+        <div [hidden]="!emojiForm.controls['name'].errors.minlength">
+          Name must have 3 characters length.
+        </div>
+        <div [hidden]="!emojiForm.controls['name'].errors.maxlength">
+          Name with in 1500 characters length.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width">
+      <textarea matInput formControlName="description" placeholder="Description"></textarea>
+      <div class="alert" *ngIf="!emojiForm.controls['description'].valid && (emojiForm.controls['description'].touched)">
+        <div [hidden]="!emojiForm.controls['description'].errors.required">
+          Description is required.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+
+    <label for="Image">Upload file</label>
+    <input type="file" id="Image" (change)="onFileChange($event)" #EmojiImage>
+    <br>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="!emojiForm.valid">Save</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

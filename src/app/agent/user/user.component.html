@@ -1,0 +1,74 @@
+<mat-card>
+  <h2>{{message}}</h2>
+
+  <form [formGroup]="userForm" *ngIf="userForm" (submit)="save()" class="row" style=" width: 100%;">
+    <mat-form-field class="full-width">
+      <textarea matInput formControlName="firstName" placeholder="First Name"></textarea>
+      <div class="alert" *ngIf="!userForm.controls['firstName'].valid && (userForm.controls['firstName'].touched)">
+        <div [hidden]="!userForm.controls['firstName'].errors.required">
+          First name is required.
+        </div>
+    
+        <div [hidden]="!userForm.controls['firstName'].errors.minlength">
+          First name must have 3 characters length.
+        </div>
+        <div [hidden]="!userForm.controls['firstName'].errors.maxlength">
+          First name with in 1500 characters length.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width">
+      <textarea matInput formControlName="lastName" placeholder="Last Name"></textarea>
+      <div class="alert" *ngIf="!userForm.controls['lastName'].valid && (userForm.controls['lastName'].touched)">
+        <div [hidden]="!userForm.controls['lastName'].errors.required">
+          Last name is required.
+        </div>
+    
+        <div [hidden]="!userForm.controls['lastName'].errors.minlength">
+          Last name must have 3 characters length.
+        </div>
+        <div [hidden]="!userForm.controls['lastName'].errors.maxlength">
+          Last name with in 1500 characters length.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width">
+      <textarea matInput formControlName="email" placeholder="Email"></textarea>
+      <div class="alert" *ngIf="!userForm.controls['email'].valid && (userForm.controls['email'].touched)">
+        <div [hidden]="!userForm.controls['email'].errors.required">
+          Email is required.
+        </div>
+    
+        <div [hidden]="!userForm.controls['email'].errors.email">
+          Email not valid.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width">
+      <textarea matInput formControlName="password" placeholder="Password"></textarea>
+      <div class="alert" *ngIf="!userForm.controls['password'].valid && (userForm.controls['password'].touched)">
+        <div [hidden]="!userForm.controls['password'].errors.required">
+          Password name is required.
+        </div>
+    
+        <div [hidden]="!userForm.controls['password'].errors.minlength">
+          Password must have 3 characters length.
+        </div>
+        <div [hidden]="!userForm.controls['password'].errors.maxlength">
+          Password with in 1500 characters length.
+        </div>
+      </div>
+    </mat-form-field>
+
+    <label for="Image">Upload file</label>
+    <input type="file" id="Image" (change)="onFileChange($event)" #UserImage>
+    <br>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="!userForm.valid">Save</button>
+    </mat-card-actions>
+  </form>
+</mat-card>
