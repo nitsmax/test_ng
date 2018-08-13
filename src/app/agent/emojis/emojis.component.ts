@@ -32,7 +32,7 @@ export class EmojisComponent implements OnInit {
   }
 
   edit(emoji) {
-    this._router.navigate(["/edit-emoji", emoji._id.$oid])
+    this._router.navigate(["/edit-emoji", emoji._id])
   }
 
   train(emoji) {
@@ -42,7 +42,7 @@ export class EmojisComponent implements OnInit {
   delete(emoji) {
     if (confirm('Are u sure want to delete this story?')) {
       this.coreService.displayLoader(true);
-      this.emojiService.delete_emoji(emoji._id.$oid).then((s: any) => {
+      this.emojiService.delete_emoji(emoji._id).then((s: any) => {
         this.ngOnInit();
         this.coreService.displayLoader(false);
       });

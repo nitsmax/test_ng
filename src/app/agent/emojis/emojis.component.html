@@ -9,17 +9,49 @@
 
 
 <mat-card>
-  <div *ngFor="let emoji of emojis" fxLayout="row" fxLayoutAlign=" center" class="intent-container">
+  <div fxLayout="row" fxLayoutAlign=" center" class="intent-container">
+    <div fxFlex="30">
+      Stiker
+    </div>
+    <div fxFlex="10">
+      Name
+    </div>
     <div fxFlex="20">
+      Tags
+    </div>
+    <div fxFlex="10">
+      Category
+    </div>
+    <div fxFlex="10">
+      Paid/Free
+    </div>
+    <div fxFlex="20">
+      Action
+    </div>
+  </div>
+  <br>
+
+</mat-card>
+
+
+<mat-card>
+  <div *ngFor="let emoji of emojis" fxLayout="row" fxLayoutAlign=" center" class="intent-container">
+    <div fxFlex="30">
+      <img [src]="emoji.image" height="200px" width="200px">
+    </div>
+    <div fxFlex="10">
       {{emoji.name}}
     </div>
     <div fxFlex="20">
-      {{emoji.description}}
+      {{emoji.tags}}
+    </div>
+    <div fxFlex="10">
+      {{emoji.category}}
+    </div>
+    <div fxFlex="10">
+      {{emoji.isPaid}}
     </div>
     <div fxFlex="20">
-      <img [src]="">
-    </div>
-    <div fxFlex="40">
       <button mat-icon-button (click)="edit(emoji)" color="accent">
         <mat-icon aria-label="Edit this emoji">edit</mat-icon>
       </button>

@@ -5,11 +5,14 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class EmojiService {
   public static emojiTypes = {
-    'mobile': 'Mobile number',
-    'email': 'Email',
-    'free_text': 'Free Text',
-    'number': 'Number',
-    'list': 'List',
+    'Bollywood': 'Bollywood',
+    'Hollywood': 'Hollywood',
+    'Modern': 'Modern',
+  };
+
+  public static paidFreeValues = {
+    'Paid': 'Paid',
+    'Free': 'Free'
   };
 
   constructor(public http: HttpClient) {
@@ -24,7 +27,7 @@ export class EmojiService {
   }
 
   saveEmoji(emoji) {
-    if (emoji._id) {
+    if (emoji.get('_id')) {
       return this.update_emoji(emoji);
     } else {
       delete emoji._id;
@@ -37,7 +40,7 @@ export class EmojiService {
   }
 
   update_emoji(emoji) {
-    return this.http.put(environment.apiBackend + `emojis/${emoji._id}`, emoji).toPromise();
+    return this.http.put(environment.apiBackend + `emojis/${emoji.get('_id')}`, emoji).toPromise();
   }
 
   delete_emoji(id) {

@@ -22,7 +22,10 @@ export class EmojiComponent implements OnInit {
 
   emojiTypes;
   emojiTypesArray;
+  paidFreeValues;
+  paidFreeArray
   message;
+  ImageUrl;
 
   constructor(
     public fb: FormBuilder,
@@ -33,6 +36,8 @@ export class EmojiComponent implements OnInit {
 
       this.emojiTypes = EmojiService.emojiTypes;
       this.emojiTypesArray = Object.keys(this.emojiTypes);
+      this.paidFreeValues = EmojiService.paidFreeValues;
+      this.paidFreeArray = Object.keys(this.paidFreeValues);
 
       
   }
@@ -41,7 +46,9 @@ export class EmojiComponent implements OnInit {
     this.emojiFormFields = {
       '_id': [''],
       'name': ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(1500)])],
-      'description': ['', Validators.compose([Validators.required])],
+      'category': ['', Validators.compose([Validators.required])],
+      'tags': ['', Validators.compose([Validators.required])],
+      'isPaid': ['', Validators.compose([Validators.required])],
       'Image': [null]
     };
 
@@ -65,6 +72,10 @@ export class EmojiComponent implements OnInit {
         this.coreService.setDataForm(this.emojiForm, this.emojiFormFields, this.emoji);
     });   
 
+    if(this.emoji && this.emoji.image){
+       this.ImageUrl = this.emoji.image;
+    }
+
 
 
   }
@@ -74,44 +85,41 @@ export class EmojiComponent implements OnInit {
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.emojiForm.get('Image').setValue({
-          filename: file.name,
-          filetype: file.type,
-          value: reader.result.split(',')[1]
-        })
+      reader.onload = (event) => {
+       this.ImageUrl = event.target.result;
       };
     }
   }
 
   save() {
     const form = this.emojiForm.value;
-
     const Image = this.EmojiImage.nativeElement;
     if (Image.files && Image.files[0]) {
       this.EmojiImageFile = Image.files[0];
     }
     const ImageFile: File = this.EmojiImageFile;
 
-    if (form._id && form._id.$oid) {
-      form._id = form._id.$oid;
-    }
+
     if (!this.apiTrigger()) {
       delete form.apiDetails;
     }
+    console.log(form)
+
 
     const formData = new FormData();
 
     for (let input in form) {
       formData.append(input, form[input]);
     }
-    formData.append('Image',ImageFile,ImageFile.name);
 
+    if(ImageFile){
+      formData.append('Image',ImageFile,ImageFile.name);
+    }
     this.emojiService.saveEmoji(formData)
       .then(c => {
         this.message = 'Emoji created!';
         this._router.navigate(["/edit-emoji", c["_id"]])
-      })
+    })
      
   }
 

@@ -3,8 +3,8 @@
 
   <form [formGroup]="emojiForm" *ngIf="emojiForm" (submit)="save()" class="row" style=" width: 100%;">
     <mat-form-field class="full-width">
-      <textarea matInput formControlName="name" placeholder="Name"></textarea>
-      <div class="alert" *ngIf="!emojiForm.controls['name'].valid && (emojiForm.controls['firstName'].touched)">
+      <input matInput formControlName="name" placeholder="Name">
+      <div class="alert" *ngIf="!emojiForm.controls['name'].valid && (emojiForm.controls['name'].touched)">
         <div [hidden]="!emojiForm.controls['name'].errors.required">
           Name is required.
         </div>
@@ -19,16 +19,34 @@
     </mat-form-field>
     <br>
     <mat-form-field class="full-width">
-      <textarea matInput formControlName="description" placeholder="Description"></textarea>
-      <div class="alert" *ngIf="!emojiForm.controls['description'].valid && (emojiForm.controls['description'].touched)">
-        <div [hidden]="!emojiForm.controls['description'].errors.required">
-          Description is required.
+      <input matInput formControlName="tags" placeholder="Tags">
+      <div class="alert" *ngIf="!emojiForm.controls['tags'].valid && (emojiForm.controls['tags'].touched)">
+        <div [hidden]="!emojiForm.controls['tags'].errors.required">
+          Tags is required.
         </div>
       </div>
     </mat-form-field>
     <br>
+    <mat-form-field class="full-width">
+      <mat-select formControlName="category" placeholder="Category">
+        <mat-option *ngFor="let category of emojiTypesArray" [value]="category">
+          {{ emojiTypes[category] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field class="full-width">
+      <mat-select formControlName="isPaid" placeholder="Paid/Free">
+        <mat-option *ngFor="let paidFree of paidFreeArray" [value]="paidFree">
+          {{ paidFreeValues[paidFree] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
 
     <label for="Image">Upload file</label>
+    <img *ngIf="ImageUrl" [src]="ImageUrl" height="200"> <br/>
     <input type="file" id="Image" (change)="onFileChange($event)" #EmojiImage>
     <br>
 
