@@ -26,7 +26,7 @@ export class EmojiService {
   }
 
   findEmojis(
-        q:'',name:'', category = '', sortOrder = 'asc',
+        q = '',name = '', category = '', sortOrder = 'asc',
         pageNumber = 0, pageSize = 3):  Observable<Emoji[]> {
 
         return this.http.get(environment.apiBackend + 'emojis/findemojis', {

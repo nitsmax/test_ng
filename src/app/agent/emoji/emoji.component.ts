@@ -83,11 +83,13 @@ export class EmojiComponent implements OnInit {
   }
 
   onFileChange(event) {
-    let reader = new FileReader();
+    var reader:any,
+    target:EventTarget;
+    reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
-      reader.onload = (event) => {
+      reader.onload = (event:any) => {
        this.ImageUrl = event.target.result;
       };
     }
