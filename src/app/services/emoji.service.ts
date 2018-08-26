@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import {map} from "rxjs/operators";
 import { environment } from '../../environments/environment';
+import {Observable} from "rxjs/Observable";
+import {Emoji} from "../model/emoji";
 
 @Injectable()
 export class EmojiService {
@@ -19,8 +22,25 @@ export class EmojiService {
   }
 
   getEmojis() {
-    return this.http.get(environment.apiBackend + 'emojis').toPromise();
+    return this.http.get(environment.apiBackend + 'emojis/findemojis').toPromise();
   }
+
+  findEmojis(
+        q:'',name:'', category = '', sortOrder = 'asc',
+        pageNumber = 0, pageSize = 3):  Observable<Emoji[]> {
+
+        return this.http.get(environment.apiBackend + 'emojis/findemojis', {
+            params: new HttpParams()
+                .set('q', q)
+                .set('name', name)
+                .set('category', category)
+                .set('sortOrder', sortOrder)
+                .set('pageNumber', pageNumber.toString())
+                .set('pageSize', pageSize.toString())
+        }).pipe(
+            map(res =>  res["payload"])
+        );
+    }
 
   getEmoji(id) {
     return this.http.get(environment.apiBackend + `emojis/${id}`).toPromise();

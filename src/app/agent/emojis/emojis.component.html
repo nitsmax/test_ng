@@ -6,60 +6,76 @@
   </h1>
 </div>
 
+<form [formGroup]="emojiForm" *ngIf="emojiForm" class="row" style=" width: 100%;" (submit)="filterS()">
+  <mat-form-field>
+    <input matInput formControlName="q" placeholder="Tags">
+  </mat-form-field>
 
+  <mat-form-field>
+    <input matInput formControlName="name" placeholder="Name">
+  </mat-form-field>
 
-<mat-card>
-  <div fxLayout="row" fxLayoutAlign=" center" class="intent-container">
-    <div fxFlex="30">
-      Stiker
-    </div>
-    <div fxFlex="10">
-      Name
-    </div>
-    <div fxFlex="20">
-      Tags
-    </div>
-    <div fxFlex="10">
-      Category
-    </div>
-    <div fxFlex="10">
-      Paid/Free
-    </div>
-    <div fxFlex="20">
-      Action
-    </div>
-  </div>
-  <br>
+  <mat-form-field>
+    <mat-select formControlName="category" placeholder="Category">
+      <mat-option *ngFor="let category of emojiTypesArray" [value]="category">
+        {{ emojiTypes[category] }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-card-actions>
+    <button mat-raised-button color="primary">Search</button>
+  </mat-card-actions>
+</form>
 
-</mat-card>
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource"
+               matSort matSortActive="name" matSortDirection="asc" matSortDisableClear>
+    
+    <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef>Sticker</mat-header-cell>
+        <mat-cell *matCellDef="let emoji"><img [src]="emoji.image" height="200px" width="200px"></mat-cell>
+    </ng-container>
 
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let emoji">{{emoji.name}}</mat-cell>
+    </ng-container>
 
-<mat-card>
-  <div *ngFor="let emoji of emojis" fxLayout="row" fxLayoutAlign=" center" class="intent-container">
-    <div fxFlex="30">
-      <img [src]="emoji.image" height="200px" width="200px">
-    </div>
-    <div fxFlex="10">
-      {{emoji.name}}
-    </div>
-    <div fxFlex="20">
-      {{emoji.tags}}
-    </div>
-    <div fxFlex="10">
-      {{emoji.category}}
-    </div>
-    <div fxFlex="10">
-      {{emoji.isPaid}}
-    </div>
-    <div fxFlex="20">
-      <button mat-icon-button (click)="edit(emoji)" color="accent">
-        <mat-icon aria-label="Edit this emoji">edit</mat-icon>
-      </button>
-      <button mat-icon-button (click)="delete(emoji)" color="warn">
-        <mat-icon aria-label="Delete this emoji">delete</mat-icon>
-      </button>
-    </div>
-  </div>
-  <br>
+    <ng-container matColumnDef="tags">
+        <mat-header-cell *matHeaderCellDef>Tags</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let emoji">{{emoji.tags}}</mat-cell>
 
-</mat-card>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef>Catgory</mat-header-cell>
+        <mat-cell class="category-cell"
+                  *matCellDef="let emoji">{{emoji.category}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="isPaid">
+        <mat-header-cell *matHeaderCellDef>Paid/Free</mat-header-cell>
+        <mat-cell *matCellDef="let emoji">{{emoji.isPaid}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let emoji" (click)="$event.stopPropagation()">
+          <button mat-button (click)="edit(emoji)">
+              <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button (click)="delete(emoji)">
+              <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+</mat-table>
+
+ <mat-paginator [length]="course?.lessonsCount" [pageSize]="3"
+                   [pageSizeOptions]="[3, 5, 10]"></mat-paginator>

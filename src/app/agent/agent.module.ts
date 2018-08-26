@@ -16,7 +16,7 @@ import { SettingsComponent } from './settings/settings.component';
 
 /* Material UI imports begins here */
 import {MatIconModule,MatCardModule,MatInputModule,
-MatOptionModule,MatSelectModule,MatCheckboxModule,MatButtonModule} from '@angular/material';
+MatOptionModule,MatSelectModule,MatCheckboxModule,MatButtonModule,MatPaginatorModule,MatSortModule,MatTableModule} from '@angular/material';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -58,7 +58,10 @@ import { AutofocusDirective } from '../directives/autofocus.directive';
     MatExpansionModule,
     MatSliderModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule
 
   ],
   declarations: [UsersComponent,UserComponent,EmojisComponent,EmojiComponent,SettingsComponent,AutofocusDirective],

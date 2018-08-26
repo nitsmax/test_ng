@@ -31,7 +31,9 @@ export class EmojiComponent implements OnInit {
     public fb: FormBuilder,
     public coreService: UtilsService,
     public emojiService: EmojiService,
-    private _activatedRoute: ActivatedRoute, private _router: Router) {
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router
+  ) {
 
 
       this.emojiTypes = EmojiService.emojiTypes;
@@ -86,7 +88,7 @@ export class EmojiComponent implements OnInit {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = (event) => {
-       //this.ImageUrl = event.target.result;
+       this.ImageUrl = event.target.result;
       };
     }
   }
