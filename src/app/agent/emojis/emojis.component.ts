@@ -16,8 +16,7 @@ import {EmojisDataSource} from '../../services/emojis.datasource';
 })
 export class EmojisComponent implements OnInit, AfterViewInit {
 
-  emojiTypes;
-  emojiTypesArray;
+  categories = []
   emojiForm: FormGroup;
   emojiFormFields: any;
 
@@ -36,8 +35,7 @@ export class EmojisComponent implements OnInit, AfterViewInit {
     private _router: Router,
     private coreService: UtilsService
   ) { 
-    this.emojiTypes = EmojiService.emojiTypes;
-    this.emojiTypesArray = Object.keys(this.emojiTypes);
+    
 
   }
 
@@ -57,6 +55,12 @@ export class EmojisComponent implements OnInit, AfterViewInit {
     this.dataSource = new EmojisDataSource(this.emojiService);
 
     this.dataSource.loadEmojis('','', '', 'asc', 0, 3);
+
+    this.emojiService.getCategories().then(
+      (result: Array<any>) => {
+        this.categories = result
+      }
+    )
   }
 
   ngAfterViewInit() { 

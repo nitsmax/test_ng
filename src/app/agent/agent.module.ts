@@ -10,6 +10,8 @@ import { UsersComponent } from './users/users.component';
 import { UserComponent } from './user/user.component';
 import { EmojisComponent } from './emojis/emojis.component';
 import { EmojiComponent } from './emoji/emoji.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { CategoryComponent } from './category/category.component';
 import { SettingsComponent } from './settings/settings.component';
 
 
@@ -32,6 +34,8 @@ import { UserService } from '../services/user.service';
 import {UserResolverService} from '../services/user-resolver.service';
 import { EmojiService } from '../services/emoji.service';
 import {EmojiResolverService} from '../services/emoji-resolver.service';
+import { CategoryService } from '../services/category.service';
+import {CategoryResolverService} from '../services/category-resolver.service';
 /* Services imports ends here */
 
 import { AutofocusDirective } from '../directives/autofocus.directive';
@@ -64,7 +68,7 @@ import { AutofocusDirective } from '../directives/autofocus.directive';
     MatTableModule
 
   ],
-  declarations: [UsersComponent,UserComponent,EmojisComponent,EmojiComponent,SettingsComponent,AutofocusDirective],
-  providers:[UserService,UserResolverService,EmojiService,EmojiResolverService]
+  declarations: [UsersComponent,UserComponent,EmojisComponent,EmojiComponent,CategoriesComponent,CategoryComponent,SettingsComponent,AutofocusDirective],
+  providers:[UserService,UserResolverService,EmojiService,EmojiResolverService,CategoryService,CategoryResolverService]
 })
 export class AgentModule { }

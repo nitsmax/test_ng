@@ -29,8 +29,8 @@
     <br>
     <mat-form-field class="full-width">
       <mat-select formControlName="category" placeholder="Category">
-        <mat-option *ngFor="let category of emojiTypesArray" [value]="category">
-          {{ emojiTypes[category] }}
+        <mat-option *ngFor="let category of categories" [value]="category.name">
+          {{ category.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>

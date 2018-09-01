@@ -7,12 +7,7 @@ import {Emoji} from "../model/emoji";
 
 @Injectable()
 export class EmojiService {
-  public static emojiTypes = {
-    'Bollywood': 'Bollywood',
-    'Hollywood': 'Hollywood',
-    'Modern': 'Modern',
-  };
-
+  
   public static paidFreeValues = {
     'Paid': 'Paid',
     'Free': 'Free'
@@ -23,6 +18,10 @@ export class EmojiService {
 
   getEmojis() {
     return this.http.get(environment.apiBackend + 'emojis/findemojis').toPromise();
+  }
+
+  getCategories() {
+    return this.http.get(environment.apiBackend + 'categories/findcategories').toPromise();
   }
 
   findEmojis(
