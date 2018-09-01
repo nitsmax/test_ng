@@ -1,0 +1,40 @@
+<div class="header" fxLayout="row" fxLayoutAlign=" center">
+  <h1 fxFlex>List of Categories
+    <button mat-mini-fab (click)="add()">
+      <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+    </button>
+  </h1>
+</div>
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="categories">
+    
+    <ng-container matColumnDef="image">
+        <mat-header-cell *matHeaderCellDef>Sticker</mat-header-cell>
+        <mat-cell *matCellDef="let category"><img [src]="category.image" height="200px" width="200px"></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let category">{{category.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let category">{{category.status}}</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let category" (click)="$event.stopPropagation()">
+          <button mat-button (click)="edit(category)">
+              <mat-icon>edit</mat-icon>
+          </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+</mat-table>

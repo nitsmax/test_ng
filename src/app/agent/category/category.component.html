@@ -1,0 +1,39 @@
+<mat-card>
+  <h2>{{message}}</h2>
+
+  <form [formGroup]="categoryForm" *ngIf="categoryForm" (submit)="save()" class="row" style=" width: 100%;">
+    <mat-form-field class="full-width">
+      <input matInput formControlName="name" placeholder="Name">
+      <div class="alert" *ngIf="!categoryForm.controls['name'].valid && (categoryForm.controls['name'].touched)">
+        <div [hidden]="!categoryForm.controls['name'].errors.required">
+          Name is required.
+        </div>
+    
+        <div [hidden]="!categoryForm.controls['name'].errors.minlength">
+          Name must have 3 characters length.
+        </div>
+        <div [hidden]="!categoryForm.controls['name'].errors.maxlength">
+          Name with in 1500 characters length.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width">
+      <mat-select formControlName="status" placeholder="Status">
+        <mat-option *ngFor="let status of statusArray" [value]="status">
+          {{ status }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+
+    <label for="Image">Upload file</label>
+    <img *ngIf="ImageUrl" [src]="ImageUrl" height="200"> <br/>
+    <input type="file" id="Image" (change)="onFileChange($event)" #CategoryImage>
+    <br>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="!categoryForm.valid">Save</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

@@ -5,9 +5,12 @@ import {UsersComponent } from './users/users.component';
 import {UserComponent} from './user/user.component';
 import {EmojisComponent } from './emojis/emojis.component';
 import {EmojiComponent} from './emoji/emoji.component';
+import {CategoriesComponent } from './categories/categories.component';
+import {CategoryComponent} from './category/category.component';
 import {SettingsComponent} from './settings/settings.component';
 import {UserResolverService} from '../services/user-resolver.service';
 import {EmojiResolverService} from '../services/emoji-resolver.service';
+import {CategoryResolverService} from '../services/category-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'emojis'},  
@@ -34,6 +37,18 @@ const routes: Routes = [
       story: EmojiResolverService,
     },
     path: 'edit-emoji/:emoji_id', component: EmojiComponent,
+  },
+  {
+    path: 'categories', component: CategoriesComponent,
+  },
+  {
+    path: 'create-category', component: CategoryComponent,
+  },
+  {
+    resolve: {
+      story: CategoryResolverService,
+    },
+    path: 'edit-category/:category_id', component: CategoryComponent,
   },
   {
     path: 'settings', component: SettingsComponent,
