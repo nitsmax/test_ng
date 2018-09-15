@@ -1,0 +1,68 @@
+<mat-card>
+  <h2>{{message}}</h2>
+
+  <form [formGroup]="voucherForm" *ngIf="voucherForm" (submit)="save()" class="row" style=" width: 100%;">
+    <mat-form-field class="full-width">
+      <input matInput formControlName="name" placeholder="Voucher Name">
+      <div class="alert" *ngIf="!voucherForm.controls['name'].valid && (voucherForm.controls['name'].touched)">
+        <div [hidden]="!voucherForm.controls['name'].errors.required">
+          Voucher Name is required.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field class="full-width">
+      <input matInput formControlName="code" placeholder="Voucher Code">
+      <div class="alert" *ngIf="!voucherForm.controls['code'].valid && (voucherForm.controls['code'].touched)">
+        <div [hidden]="!voucherForm.controls['code'].errors.required">
+          Voucher Code is required.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width">
+      <input matInput formControlName="discount" placeholder="Voucher Discount">
+      <div class="alert" *ngIf="!voucherForm.controls['discount'].valid && (voucherForm.controls['discount'].touched)">
+        <div [hidden]="!voucherForm.controls['discount'].errors.required">
+          Discount is required.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width">
+      <input matInput formControlName="uselimit" placeholder="Voucher Use Limit">
+      <div class="alert" *ngIf="!voucherForm.controls['uselimit'].valid && (voucherForm.controls['uselimit'].touched)">
+        <div [hidden]="!voucherForm.controls['uselimit'].errors.required">
+          Use Limit is required.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field class="full-width">
+      <input matInput [matDatepicker]="picker" formControlName="expireDate" placeholder="Voucher Expire Date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <div class="alert" *ngIf="!voucherForm.controls['expireDate'].valid && (voucherForm.controls['expireDate'].touched)">
+        <div [hidden]="!voucherForm.controls['expireDate'].errors.required">
+          Expire Date is required.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    
+    <mat-form-field>
+      <mat-select formControlName="membershipPlan" placeholder="Membership Plan">
+        <mat-option [value]="">Select</mat-option>
+        <mat-option *ngFor="let country of countries" [value]="country._id">
+          {{ country.countryName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="!voucherForm.valid">Save</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

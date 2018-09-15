@@ -1,0 +1,40 @@
+<mat-card>
+  <h2>{{message}}</h2>
+
+  <form [formGroup]="countryForm" *ngIf="countryForm" (submit)="save()" class="row" style=" width: 100%;">
+    <div>
+        Country Name: {{countryName}}
+    </div>
+    <br>
+    <mat-form-field class="full-width">
+      <input matInput formControlName="countryCurrency" placeholder="Currency">
+      <div class="alert" *ngIf="!countryForm.controls['countryCurrency'].valid && (countryForm.controls['countryCurrency'].touched)">
+        <div [hidden]="!countryForm.controls['countryCurrency'].errors.required">
+          Currency is required.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width">
+      <input matInput formControlName="monthlyAmount" placeholder="Monthly Amount">
+      <div class="alert" *ngIf="!countryForm.controls['monthlyAmount'].valid && (countryForm.controls['monthlyAmount'].touched)">
+        <div [hidden]="!countryForm.controls['monthlyAmount'].errors.required">
+          Monthly Amount is required.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="full-width">
+      <input matInput formControlName="displayOrder" placeholder="Display Order">
+      <div class="alert" *ngIf="!countryForm.controls['displayOrder'].valid && (countryForm.controls['displayOrder'].touched)">
+        <div [hidden]="!countryForm.controls['displayOrder'].errors.required">
+          Display Order is required.
+        </div>
+      </div>
+    </mat-form-field>
+    <br>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="!countryForm.valid">Save</button>
+    </mat-card-actions>
+  </form>
+</mat-card>

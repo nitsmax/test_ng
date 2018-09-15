@@ -12,13 +12,17 @@ import { EmojisComponent } from './emojis/emojis.component';
 import { EmojiComponent } from './emoji/emoji.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryComponent } from './category/category.component';
+import { CountryComponent} from './country/country.component';
+import { CountriesComponent } from './countries/countries.component';
+import {VoucherComponent} from './voucher/voucher.component';
+import {VouchersComponent } from './vouchers/vouchers.component';
 import { SettingsComponent } from './settings/settings.component';
 
 
 
 /* Material UI imports begins here */
 import {MatIconModule,MatCardModule,MatInputModule,
-MatOptionModule,MatSelectModule,MatCheckboxModule,MatButtonModule,MatPaginatorModule,MatSortModule,MatTableModule} from '@angular/material';
+MatOptionModule,MatSelectModule,MatCheckboxModule,MatButtonModule,MatPaginatorModule,MatSortModule,MatTableModule,MatNativeDateModule,MatDatepickerModule} from '@angular/material';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -36,6 +40,10 @@ import { EmojiService } from '../services/emoji.service';
 import {EmojiResolverService} from '../services/emoji-resolver.service';
 import { CategoryService } from '../services/category.service';
 import {CategoryResolverService} from '../services/category-resolver.service';
+import {CountryService} from '../services/country.service';
+import {CountryResolverService} from '../services/country-resolver.service';
+import {VoucherService} from '../services/voucher.service';
+import {VoucherResolverService} from '../services/voucher-resolver.service';
 /* Services imports ends here */
 
 import { AutofocusDirective } from '../directives/autofocus.directive';
@@ -50,6 +58,7 @@ import { AutofocusDirective } from '../directives/autofocus.directive';
     
     AgentRoutingModule,
     
+    MatNativeDateModule,
     MatIconModule,
     MatCardModule,
     MatInputModule,
@@ -65,10 +74,11 @@ import { AutofocusDirective } from '../directives/autofocus.directive';
     MatAutocompleteModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    MatDatepickerModule
 
   ],
-  declarations: [UsersComponent,UserComponent,EmojisComponent,EmojiComponent,CategoriesComponent,CategoryComponent,SettingsComponent,AutofocusDirective],
-  providers:[UserService,UserResolverService,EmojiService,EmojiResolverService,CategoryService,CategoryResolverService]
+  declarations: [UsersComponent,UserComponent,EmojisComponent,EmojiComponent,CategoriesComponent,CategoryComponent,CountriesComponent,CountryComponent,VouchersComponent,VoucherComponent,SettingsComponent,AutofocusDirective],
+  providers:[UserService,UserResolverService,EmojiService,EmojiResolverService,CategoryService,CategoryResolverService,CountryService,CountryResolverService,VoucherService,VoucherResolverService]
 })
 export class AgentModule { }

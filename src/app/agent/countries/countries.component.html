@@ -1,0 +1,62 @@
+<div class="header" fxLayout="row" fxLayoutAlign=" center">
+  <h1 fxFlex>List of Countries
+  </h1>
+</div>
+
+<form [formGroup]="countryForm" *ngIf="countryForm" class="row" style=" width: 100%;" (submit)="filterS()">
+
+  <mat-form-field>
+    <input matInput formControlName="countryName" placeholder="Country Name">
+  </mat-form-field>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary">Search</button>
+  </mat-card-actions>
+</form>
+
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource"
+               matSort matSortActive="name" matSortDirection="asc" matSortDisableClear>
+
+    <ng-container matColumnDef="countryName">
+        <mat-header-cell *matHeaderCellDef>Country Name</mat-header-cell>
+        <mat-cell *matCellDef="let country">{{country.countryName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="countryCode">
+        <mat-header-cell *matHeaderCellDef>Country Code</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let country">{{country.countryCode}}</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="countryCurrency">
+        <mat-header-cell *matHeaderCellDef>Country Currency</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let country">{{country.countryCurrency}}</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="monthlyAmount">
+        <mat-header-cell *matHeaderCellDef>Monthly Plan</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let country">{{country.monthlyAmount}}</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let country" (click)="$event.stopPropagation()">
+          <button mat-button (click)="edit(country)">
+              <mat-icon>edit</mat-icon>
+          </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+</mat-table>
+
+ <mat-paginator [length]="0" [pageSize]="3"
+                   [pageSizeOptions]="[3, 5, 10]"></mat-paginator>

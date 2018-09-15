@@ -1,0 +1,103 @@
+<div class="header" fxLayout="row" fxLayoutAlign=" center">
+  <h1 fxFlex>List of Vouchers
+    <button mat-mini-fab (click)="add()">
+      <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+    </button>
+  </h1>
+</div>
+
+<form [formGroup]="voucherForm" *ngIf="voucherForm" class="row" style=" width: 100%;" (submit)="filterS()">
+
+  <mat-form-field>
+    <input matInput formControlName="voucherName" placeholder="Voucher Name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="voucherCode" placeholder="Voucher Code">
+  </mat-form-field>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary">Search</button>
+  </mat-card-actions>
+</form>
+
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource"
+               matSort matSortActive="name" matSortDirection="asc" matSortDisableClear>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Voucher Name</mat-header-cell>
+        <mat-cell *matCellDef="let voucher">{{voucher.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="code">
+        <mat-header-cell *matHeaderCellDef>Voucher Code</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let voucher">{{voucher.code}}</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="discount">
+        <mat-header-cell *matHeaderCellDef>Voucher Discount</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let voucher">{{voucher.discount}}%</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="voucherCurrency">
+        <mat-header-cell *matHeaderCellDef>Voucher Currency</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let voucher">{{voucher.voucherCurrency}}</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="uselimit">
+        <mat-header-cell *matHeaderCellDef>Use Limit</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let voucher">{{voucher.uselimit}}</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="usedNum">
+        <mat-header-cell *matHeaderCellDef>Used</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let voucher">{{voucher.usedNum}}</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="membershipPlan">
+        <mat-header-cell *matHeaderCellDef>Membership Plan</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let voucher">{{voucher.membershipPlan}}</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="expireDate">
+        <mat-header-cell *matHeaderCellDef>Voucher Expire Date</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let voucher">{{voucher.expireDate}}</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="date_created">
+        <mat-header-cell *matHeaderCellDef>Voucher Created Date</mat-header-cell>
+        <mat-cell class="tag-cell"
+                  *matCellDef="let voucher">{{voucher.date_created}}</mat-cell>
+
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let voucher" (click)="$event.stopPropagation()">
+          <button mat-button (click)="edit(voucher)">
+              <mat-icon>edit</mat-icon>
+          </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+</mat-table>
+
+ <mat-paginator [length]="0" [pageSize]="3"
+                   [pageSizeOptions]="[3, 5, 10]"></mat-paginator>
