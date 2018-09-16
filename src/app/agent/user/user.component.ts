@@ -74,16 +74,14 @@ export class UserComponent implements OnInit {
   }
 
   onFileChange(event) {
-    let reader = new FileReader();
+    var reader:any,
+    target:EventTarget;
+    reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.userForm.get('Image').setValue({
-          filename: file.name,
-          filetype: file.type,
-          value: reader.result.split(',')[1]
-        })
+      reader.onload = (event:any) => {
+       this.UserImageFile = event.target.result;
       };
     }
   }
