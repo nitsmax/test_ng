@@ -6,28 +6,95 @@
   </h1>
 </div>
 
+<form [formGroup]="userForm" *ngIf="userForm" class="row" style=" width: 100%;" (submit)="filterS()">
+  <mat-form-field>
+    <input matInput formControlName="firstName" placeholder="First Name">
+  </mat-form-field>
 
+  <mat-form-field>
+    <input matInput formControlName="lastName" placeholder="Last Name">
+  </mat-form-field>
 
-<mat-card>
-  <div *ngFor="let user of users" fxLayout="row" fxLayoutAlign=" center" class="intent-container">
-    <div fxFlex="20">
-      {{user.firstName}}
-    </div>
-    <div fxFlex="20">
-      {{user.lastName}}
-    </div>
-    <div fxFlex="20">
-      {{user.email}}
-    </div>
-    <div fxFlex="40">
-      <button mat-icon-button (click)="edit(user)" color="accent">
-        <mat-icon aria-label="Edit this user">edit</mat-icon>
-      </button>
-      <button mat-icon-button (click)="delete(user)" color="warn">
-        <mat-icon aria-label="Delete this user">delete</mat-icon>
-      </button>
-    </div>
-  </div>
-  <br>
+  <mat-form-field>
+    <input matInput formControlName="email" placeholder="Email">
+  </mat-form-field>
 
-</mat-card>
+  <mat-form-field>
+    <mat-select formControlName="country" placeholder="Country">
+      <mat-option [value]="">Select</mat-option>
+        <mat-option *ngFor="let country of countries" [value]="country._id">
+          {{ country.countryName }}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="state" placeholder="State">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select formControlName="ispaid" placeholder="Membership">
+      <mat-option *ngFor="let paidFree of paidFreeArray" [value]="paidFree">
+        {{ paidFreeValues[paidFree] }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-card-actions>
+    <button mat-raised-button color="primary">Search</button>
+  </mat-card-actions>
+</form>
+
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource"
+               matSort matSortActive="name" matSortDirection="asc" matSortDisableClear>
+
+    <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.firstName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.lastName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.email}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef>Country</mat-header-cell>
+        <mat-cell class="category-cell"
+                  *matCellDef="let user">{{user.country}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef>State</mat-header-cell>
+        <mat-cell class="category-cell"
+                  *matCellDef="let user">{{user.state}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="membershipPlan">
+        <mat-header-cell *matHeaderCellDef>Membership</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.membershipPlan}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="memberShipExpDate">
+        <mat-header-cell *matHeaderCellDef>Membership ExpDate</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.memberShipExpDate}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="date_created">
+        <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.date_created}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+</mat-table>
+
+ <mat-paginator [length]="0" [pageSize]="3"
+                   [pageSizeOptions]="[3, 5, 10]"></mat-paginator>

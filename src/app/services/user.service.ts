@@ -1,30 +1,55 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import {map} from "rxjs/operators";
 import { environment } from '../../environments/environment';
+import {Observable} from "rxjs/Observable";
+import {User} from "../model/user";
 
 @Injectable()
 export class UserService {
-  public static userTypes = {
-    'mobile': 'Mobile number',
-    'email': 'Email',
-    'free_text': 'Free Text',
-    'number': 'Number',
-    'list': 'List',
+  
+  public static paidFreeValues = {
+    'Paid': 'Paid',
+    'Free': 'Free'
   };
 
   constructor(public http: HttpClient) {
   }
 
   getUsers() {
-    return this.http.get(environment.apiBackend + 'users').toPromise();
+    return this.http.get(environment.apiBackend + 'users/findusers').toPromise();
   }
+
+  getCategories() {
+    return this.http.get(environment.apiBackend + 'categories/findcategories').toPromise();
+  }
+
+  findUsers(
+        firstName = '',lastName = '', email = '', country = '', state= '', ispaid= '', sortOrder = 'asc',
+        pageNumber = 0, pageSize = 3):  Observable<User[]> {
+
+        return this.http.get(environment.apiBackend + 'users/findusers', {
+            params: new HttpParams()
+                .set('firstName', firstName)
+                .set('lastName', lastName)
+                .set('email', email)
+                .set('country', country)
+                .set('state', state)
+                .set('ispaid', ispaid)
+                .set('sortOrder', sortOrder)
+                .set('pageNumber', pageNumber.toString())
+                .set('pageSize', pageSize.toString())
+        }).pipe(
+            map(res =>  res["payload"])
+        );
+    }
 
   getUser(id) {
     return this.http.get(environment.apiBackend + `users/${id}`).toPromise();
   }
 
   saveUser(user) {
-    if (user._id) {
+    if (user.get('_id')) {
       return this.update_user(user);
     } else {
       delete user._id;
@@ -37,7 +62,7 @@ export class UserService {
   }
 
   update_user(user) {
-    return this.http.put(environment.apiBackend + `users/${user._id}`, user).toPromise();
+    return this.http.put(environment.apiBackend + `users/${user.get('_id')}`, user).toPromise();
   }
 
   delete_user(id) {

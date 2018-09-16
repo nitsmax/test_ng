@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormArray,Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { UtilsService } from '../../services/utils.service';
-import {UserService  } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user',
@@ -20,8 +20,6 @@ export class UserComponent implements OnInit {
 
   UserImageFile: File;
 
-  userTypes;
-  userTypesArray;
   message;
 
   constructor(
@@ -29,11 +27,6 @@ export class UserComponent implements OnInit {
     public coreService: UtilsService,
     public userService: UserService,
     private _activatedRoute: ActivatedRoute, private _router: Router) {
-
-
-      this.userTypes = UserService.userTypes;
-      this.userTypesArray = Object.keys(this.userTypes);
-
       
   }
 
